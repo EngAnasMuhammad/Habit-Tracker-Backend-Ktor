@@ -1,0 +1,11 @@
+ktor:
+  deployment:
+    port: 8080
+  application:
+    modules:
+      - com.example.RoutingKt.configureRouting
+
+database:
+  url: ${DB_URL}
+  user: ${DB_USER}
+  password: ${DB_PASSWORD}
