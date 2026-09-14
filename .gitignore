@@ -1,0 +1,7 @@
+.idea/
+.run/
+*.iml
+local.properties
+.env
+build/
+.gradle/
