@@ -19,8 +19,10 @@ data class Habit(
     val title: String,
     val description: String,
     @SerializedName("total_days") val totalDays: Int,
+    @SerializedName("start_date") val startDate: String,
     @SerializedName("current_progress") val currentProgress: Int,
-    @SerializedName("last_completed_date") val lastCompletedDate: String?
+    @SerializedName("last_completed_date") val lastCompletedDate: String?,
+    @SerializedName("is_flexible") val isFlexible: Boolean,
 )
 
 object HabitsTable : Table() {
@@ -28,8 +30,10 @@ object HabitsTable : Table() {
     val title = varchar("title", 255)
     val description = text("description")
     val totalDays = integer("total_days")
+    val startDate = varchar("start_date", 50)
     val currentProgress = integer("current_progress")
     val lastCompletedDate = varchar("last_completed_date", 50).nullable()
+    val isFlexible = bool("is_flexible")
 
     override val primaryKey = PrimaryKey(id)
 }
@@ -67,8 +71,10 @@ fun main() {
                         it[title] = newHabit.title
                         it[description] = newHabit.description
                         it[totalDays] = newHabit.totalDays
+                        it[startDate] = newHabit.startDate
                         it[currentProgress] = newHabit.currentProgress
                         it[lastCompletedDate] = newHabit.lastCompletedDate
+                        it[isFlexible] = newHabit.isFlexible
                     }
                 }
                 call.respondText("Successfully saved ${newHabit.title} to the database!")
@@ -82,8 +88,10 @@ fun main() {
                             title = row[HabitsTable.title],
                             description = row[HabitsTable.description],
                             totalDays = row[HabitsTable.totalDays],
+                            startDate = row[HabitsTable.startDate],
                             currentProgress = row[HabitsTable.currentProgress],
-                            lastCompletedDate = row[HabitsTable.lastCompletedDate]
+                            lastCompletedDate = row[HabitsTable.lastCompletedDate],
+                            isFlexible = row[HabitsTable.isFlexible],
                         )
                     }
                 }
@@ -104,7 +112,9 @@ fun main() {
                         it[description] = updatedData.description
                         it[totalDays] = updatedData.totalDays
                         it[currentProgress] = updatedData.currentProgress
+                        it[startDate] = updatedData.startDate
                         it[lastCompletedDate] = updatedData.lastCompletedDate
+                        it[isFlexible] = updatedData.isFlexible
                     }
                 }
 
